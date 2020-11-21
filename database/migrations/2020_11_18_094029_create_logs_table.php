@@ -24,6 +24,7 @@ class CreateLogsTable extends Migration
 
             $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users');
+
         });
     }
 

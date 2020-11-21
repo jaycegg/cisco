@@ -19,6 +19,7 @@ class CreateMaterielsTable extends Migration
             $table->string('categorie');
             $table->tinyInteger('etat');
 
+            
             $table->foreignId('campuses_id')->constrained('campuses');
 
         });

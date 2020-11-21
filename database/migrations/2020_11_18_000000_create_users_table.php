@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
 
             $table->foreignId('campuses_id')->constrained('campuses');
+            
         });
     }
 
