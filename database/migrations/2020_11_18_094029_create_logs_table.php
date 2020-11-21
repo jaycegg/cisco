@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLogTable extends Migration
+class CreateLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateLogTable extends Migration
      */
     public function up()
     {
-        Schema::create('log', function (Blueprint $table) {
+        Schema::create('logs', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date');
             $table->string('description');
 
-            $table->foreignId('materiel_id')->nullable()->constrained('materiel');
-            $table->foreignId('salle_id')->nullable()->constrained('salle');
+            $table->foreignId('materiels_id')->nullable()->constrained('materiels');
+            $table->foreignId('salles_id')->nullable()->constrained('salles');
             
-            $table->unsignedBigInteger('users_email');
-            $table->foreign('users_email')->references('email')->on('users');
+            $table->unsignedBigInteger('users_id');
+            $table->foreign('users_id')->references('id')->on('users');
         });
     }
 
@@ -33,6 +33,6 @@ class CreateLogTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('log');
+        Schema::dropIfExists('logs');
     }
 }
