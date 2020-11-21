@@ -20,7 +20,8 @@ class CreateLogsTable extends Migration
 
             $table->foreignId('materiels_id')->nullable()->constrained('materiels');
             $table->foreignId('salles_id')->nullable()->constrained('salles');
-            
+            $table->foreignId('videos_id')->nullable()->constrained('videos');
+
             $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users');
 

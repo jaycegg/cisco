@@ -7,6 +7,7 @@
                 <div class="card-header">{{ __('S\'inscrire') }}</div>           
                 <div class="card-body">
 
+                        <!-- Formulaire de Laravel Collective-->
                         {!! Form::open(['route' => 'register', 'method' => 'post']) !!}                            
                             {!! Form::token() !!}
                                 {!! Form::label('campuses_id', 'Campus') !!}
