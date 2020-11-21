@@ -18,6 +18,7 @@ class CreateVideosTable extends Migration
             $table->dateTime('date');
             $table->string('chemin');
             $table->string('nom');
+            
         });
     }
 

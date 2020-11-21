@@ -20,6 +20,7 @@ class CreateSallesTable extends Migration
             $table->foreignId('materiels_id')->constrained('materiels');
             $table->foreignId('videos_id')->constrained('videos');
             $table->foreignId('campuses_id')->constrained('campuses');
+            
         });
     }
 
