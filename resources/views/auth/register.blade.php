@@ -1,3 +1,5 @@
+@dump($errors)
+
 @extends('layouts.app')
 
 @section('content')

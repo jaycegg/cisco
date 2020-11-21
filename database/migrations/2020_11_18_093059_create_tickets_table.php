@@ -20,7 +20,7 @@ class CreateTicketsTable extends Migration
             $table->dateTime('dateEcheance');
             $table->string('description');
             $table->tinyInteger('etat');
-
+          
             $table->foreignId('materiels_id')->nullable()->constrained('materiels');
             $table->foreignId('salles_id')->nullable()->constrained('salles');
 
