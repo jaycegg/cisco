@@ -18,10 +18,13 @@ class CreateMaterielsTable extends Migration
             $table->string('nom');
             $table->string('categorie');
             $table->tinyInteger('etat');
+<<<<<<< HEAD
 
             
             $table->foreignId('campuses_id')->constrained('campuses');
 
+=======
+>>>>>>> master
         });
     }
 
