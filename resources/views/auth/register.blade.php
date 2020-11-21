@@ -10,6 +10,7 @@
                 <div class="card-header">{{ __('Register') }}</div>           
                 <div class="card-body">
 
+                        <!-- Formulaire de Laravel Collective-->
                         {!! Form::open(['route' => 'register', 'method' => 'post']) !!}                            
                             {!! Form::token() !!}
                                 {!! Form::label('campuses_id', 'Campus') !!}
