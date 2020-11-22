@@ -1,0 +1,5 @@
+                    @if (Auth::user()->roles_id === 4)
+                        Salutations !
+                    @endif
+
+Dans la vue, affiche des éléments selon le role de l'utilisateur connecté

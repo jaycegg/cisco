@@ -22,8 +22,8 @@ class User extends Authenticatable
         'prenom',
         'email',
         'password',
-        'role',
         'campuses_id',
+        'roles_id',
     ];
 
     /**
