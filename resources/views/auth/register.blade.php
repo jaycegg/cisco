@@ -8,12 +8,8 @@
                 <div class="card-body">
 
                         <!-- Formulaire de Laravel Collective-->
-<<<<<<< HEAD
-                        {!! Form::open(['route' => 'register', 'method' => 'post']) !!}                            
-=======
-                        {!! Form::open(['route' => 'register', 'method' => 'post']) !!}             
+                        {!! Form::open(['route' => 'register', 'method' => 'post']) !!}                   
                             <!-- Token pour éviter les actions non sécurisées -->               
->>>>>>> 4d4e7c5387456ffd7275796d2863773c7c526dbe
                             {!! Form::token() !!}
                                 <!-- Fonction pluck de laravel collective qui va afficher les noms et prendre en value l'id-->
                                 {!! Form::label('campuses_id', 'Campus') !!}
