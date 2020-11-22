@@ -20,12 +20,12 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role');
             $table->rememberToken();
             $table->timestamps();
 
             $table->foreignId('campuses_id')->constrained('campuses');
-            
+            /* Role pour l'autorisation des routes*/
+            $table->foreignId('roles_id')->constrained('roles');
         });
     }
 

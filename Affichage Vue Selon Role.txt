@@ -1,0 +1,7 @@
+if (Auth::user()->roles_id === 4){
+            return view('home');
+        }else{
+            return view('welcome');
+        }
+
+Ici va attraper l'id du role
