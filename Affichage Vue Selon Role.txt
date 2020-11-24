@@ -1,7 +1,33 @@
-if (Auth::user()->roles_id === 4){
-            return view('home');
-        }else{
-            return view('welcome');
-        }
+    if (Auth::user()->roles_id === 4){
+        return view('home');
+    }else{
+        return back();
+    }
 
-Ici va attraper l'id du role
+Ci-dessus va attraper l'id du role pour l'affichage de la vue
+Pour utiliser l'inverse de l'id 4 il faut mettre != au lieu de === ou ==
+A insérer dans le controller qui renvoie la vue avec en haut de page :
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+Ci-dessus pour reconnaitre le user connecté
+use App\Models\NomDuModelSiParametres;
+
+PAS DANS WEB.PHP EN ATTENDANT DE MAITRISER LE MIDDLEWARE
+
+    $salles_id = Salle::all();
+        
+    if(Auth::user()->roles_id != 1){
+        return view('gestion.salleGest')->with('salles_id', $salles_id);
+    }else{
+        return back();
+    }
+
+Ci-dessus je veux mettre un foreach dans ma vue salleGest dans son dossier gestion 
+donc j'ai inclus la fonction ->with afin  d'utiliser le $salles_id
+
+Ensuite je colle dans ma vue :
+
+    @foreach ($salles_id as $salle)
+        {{ $salle->nom}}
+    @endforeach

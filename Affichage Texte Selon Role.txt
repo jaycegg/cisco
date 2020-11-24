@@ -1,5 +1,6 @@
-                    @if (Auth::user()->roles_id === 4)
-                        Salutations !
-                    @endif
+    @if (Auth::user()->roles_id === 4)
+        Salutations !
+    @endif
 
 Dans la vue, affiche des éléments selon le role de l'utilisateur connecté
+Pour utiliser l'inverse de l'id 4 il faut mettre != au lieu de === ou ==

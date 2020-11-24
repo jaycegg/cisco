@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Salle;
 
-class TicketController extends Controller
+class SalleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,8 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        $salles = Salle::all();
+        return view('dash.salles.index', compact('salles'));
     }
 
     /**
@@ -23,7 +26,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        //
+        return view('dash.salles.create');
     }
 
     /**
@@ -34,7 +37,15 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required',
+            'etat' => 'required',
+        ]);
+
+        Salle::create($request->all());
+
+        return redirect()->route('dash.salles.index')
+            ->with('success', 'Salle créée');
     }
 
     /**
@@ -45,7 +56,7 @@ class TicketController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('dash.salles.show', compact('id'));
     }
 
     /**
@@ -56,7 +67,7 @@ class TicketController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('dash.salles.edit', compact('id'));
     }
 
     /**
@@ -68,7 +79,15 @@ class TicketController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nom' => 'required',
+            'etat' => 'required',
+        ]);
+
+        $id->update($request->all());
+
+        return redirect()->route('dash.salles.index')
+            ->with('success', 'Salle modifiée');
     }
 
     /**
@@ -79,6 +98,9 @@ class TicketController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $id->delete();
+
+        return redirect()->route('dash.salles.index')
+            ->with('success', 'Salle supprimée');
     }
 }

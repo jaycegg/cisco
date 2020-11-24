@@ -16,5 +16,9 @@ class Salle extends Model
      */
     protected $fillable = [
         'nom',
+        'etat',
+        'materiels_id',
+        'videos_id',
+        'campuses_id',
     ];
 }

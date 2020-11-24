@@ -1,19 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Log;
 
-class MaterielController extends Controller
+class LogController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $logs = Log::all();
+        return view('dash.logs.index', compact('logs'));
     }
 
     /**
@@ -23,7 +26,7 @@ class MaterielController extends Controller
      */
     public function create()
     {
-        //
+        return view('dash.logs.create');
     }
 
     /**
@@ -34,7 +37,15 @@ class MaterielController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'date' => 'required',
+            'description' => 'required',
+        ]);
+
+        Log::create($request->all());
+
+        return redirect()->route('dash.logs.index')
+            ->with('success', 'Log créé');
     }
 
     /**
@@ -45,7 +56,7 @@ class MaterielController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('dash.logs.show', compact('id'));
     }
 
     /**
@@ -56,7 +67,7 @@ class MaterielController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('dash.logs.edit', compact('id'));
     }
 
     /**
@@ -68,7 +79,15 @@ class MaterielController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'date' => 'required',
+            'description' => 'required',
+        ]);
+
+        $id->update($request->all());
+
+        return redirect()->route('dash.logs.index')
+            ->with('success', 'Log modifié');
     }
 
     /**
@@ -79,6 +98,9 @@ class MaterielController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $id->delete();
+
+        return redirect()->route('dash.logs.index')
+            ->with('success', 'Log supprimé');
     }
 }
