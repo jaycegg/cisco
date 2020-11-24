@@ -17,8 +17,8 @@ class CreateMaterielsTable extends Migration
             $table->id();
             $table->string('nom');
             $table->string('categorie');
-            $table->tinyInteger('etat');
-
+            $table->boolean('etat')->default(1);
+            $table->timestamps();
             
             $table->foreignId('campuses_id')->constrained('campuses');
 

@@ -16,7 +16,9 @@ class CreateSallesTable extends Migration
         Schema::create('salles', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-
+            $table->boolean('etat')->default(1);
+            $table->timestamps();
+            
             $table->foreignId('materiels_id')->nullable()->constrained('materiels');
             $table->foreignId('videos_id')->nullable()->constrained('videos');
             $table->foreignId('campuses_id')->constrained('campuses');

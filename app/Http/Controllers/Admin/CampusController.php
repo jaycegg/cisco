@@ -1,19 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Campus;
 
-class SalleController extends Controller
+class CampusController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $campuses = Campus::all();
+        return view('dash.campuses.index', compact('campuses'));
     }
 
     /**
@@ -23,7 +26,7 @@ class SalleController extends Controller
      */
     public function create()
     {
-        //
+        return view('dash.campuses.create');
     }
 
     /**
@@ -34,7 +37,15 @@ class SalleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'ville' => 'required',
+            'pays' => 'required',
+        ]);
+
+        Campus::create($request->all());
+
+        return redirect()->route('dash.campuses.index')
+            ->with('success', 'Campus créé');
     }
 
     /**
@@ -45,7 +56,7 @@ class SalleController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('dash.campuses.show', compact('id'));
     }
 
     /**
@@ -56,7 +67,7 @@ class SalleController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('dash.campuses.edit', compact('id'));
     }
 
     /**
@@ -68,7 +79,15 @@ class SalleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'ville' => 'required',
+            'pays' => 'required',
+        ]);
+
+        $id->update($request->all());
+
+        return redirect()->route('dash.campuses.index')
+            ->with('success', 'Campus modifié');
     }
 
     /**
@@ -79,6 +98,9 @@ class SalleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $id->delete();
+
+        return redirect()->route('dash.campuses.index')
+            ->with('success', 'Campus supprimé');
     }
 }

@@ -13,6 +13,8 @@
                         </div>
                     @endif
 
+                    <a class="btn btn-dark" href="{{route('salleGest')}}">Salles</a>
+
                     <!-- Bouton pour se déconnecter grâce à la fonction logout -->
                     <form id="logout-form" action="{{ url('logout') }}" method="POST">
                         {{ csrf_field() }}
