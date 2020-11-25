@@ -13,7 +13,9 @@
                         </div>
                     @endif
 
-                    <a class="btn btn-dark" href="{{route('salleGest')}}">Salles</a>
+
+                    <a class="btn btn-dark" href="{{route('dash')}}">Dashboard Admin</a>
+
 
                     <!-- Bouton pour se déconnecter grâce à la fonction logout -->
                     <form id="logout-form" action="{{ url('logout') }}" method="POST">

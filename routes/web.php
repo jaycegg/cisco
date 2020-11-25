@@ -20,19 +20,34 @@ use App\Http\Controllers\Admin\UserController;
 |
 */
 
+/* Route de la première page */
 Route::get('/', function () {
     return view('welcome');
 });
 
-/* CRUD entiers */
-Route::resource('salles', SalleController::class);
-Route::resource('videos', VideoController::class);
-Route::resource('materiels', MaterielController::class);
-Route::resource('logs', LogController::class);
-Route::resource('campuses', CampusController::class);
-Route::resource('tickets', TicketController::class);
-Route::resource('users', UserController::class);
 
+/* Route pouvant modifier les booleens concernant les etats */
+Route::get('/reservation/salles', [SalleController::class, 'showEtat'])->name('salleResa');
+Route::post('/reservation/salles', [SalleController::class, 'reserver']);
+
+/* Routes spécifiques concernant l'administrateur */
+Route::group(['middleware' => ['admin']], function () {
+    /* Acces vers le dashboard admin */
+    Route::get('/dash', [UserController::class, 'dash'])->name('dash');
+
+    /* CRUD entiers en une seule ligne*/
+    Route::resource('salles', SalleController::class);
+    Route::resource('videos', VideoController::class);
+    Route::resource('materiels', MaterielController::class);
+    Route::resource('logs', LogController::class);
+    Route::resource('campuses', CampusController::class);
+    Route::resource('tickets', TicketController::class);
+    Route::resource('users', UserController::class);
+
+});
+
+/* Route concernant l'authentification, le mot de passe oublié, logout, ect... */
 Auth::routes();
 
+/* Route du menu principal */
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

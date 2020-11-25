@@ -8,6 +8,12 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+
+    public function dash(){
+        $this->middleware('admin');
+        return view('dash.dashboard');
+    }
+
     /**
     * Display a listing of the resource.
     *
