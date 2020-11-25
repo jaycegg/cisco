@@ -25,6 +25,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 /* Route pouvant modifier les booleens concernant les etats */
 Route::get('/reservation/salles', [SalleController::class, 'showEtat'])->name('salleResa');
 Route::post('/reservation/salles', [SalleController::class, 'reserver']);

@@ -20,6 +20,7 @@
                 <button type="button" class="btn btn-warning" disabled>Indisponible</button>
                 {{ Form::submit('Rendre dispo', array('class' => 'btn btn-danger')) }}
             {{ Form::close() }}
+
         @endif
         
     @endforeach
