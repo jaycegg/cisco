@@ -20,7 +20,7 @@
             </form>
 
         @else
-            
+          
             <p class='text-center text-danger'>{{ $salle->nom }} : Non disponible</p>
             
             <button class="btn btn-warning" disabled>Indisponible</button>
