@@ -1,25 +1,41 @@
 @extends('layouts.app')
 @section('content')
     
-    @foreach ($salles_id as $salle)
+    @foreach ($salle_id as $salle)
         @if ($salle->etat == True)
             
             <p class='text-center text-success'>{{ $salle->nom }} : Disponible</p>
-            
-            <form method="post" action="/reservation/salles">
+
+            <form enctype="multipart/form-data" method="POST" action="{{route('reservationSalles')}}" >
                 @csrf
-                <input type="hidden" name="id" value="$salle->id"/>
+
+                @if($salle->etat == 1 )
+                <input type="hidden" name="id" value="{{ $salle->id }}" />
+                <input type="hidden" name="etat" value="0" />
+                @endif
+                
                 <button class="btn btn-success" type="submit">
                     Réserver
                 </button>
             </form>
 
         @else
-            <p class='text-center text-danger'>{{ $salle->nom }} : Indisponible</p>
-            {{ Form::model(['route' => ['App\Http\Controllers\Admin\SalleController@reserver', $salle->id], 'method' => 'POST']) }}
-                <button type="button" class="btn btn-warning" disabled>Indisponible</button>
-                {{ Form::submit('Rendre dispo', array('class' => 'btn btn-danger')) }}
-            {{ Form::close() }}
+            
+            <p class='text-center text-danger'>{{ $salle->nom }} : Non disponible</p>
+            
+            <button class="btn btn-warning" disabled>Indisponible</button>
+
+            <form enctype="multipart/form-data" method="POST" action="{{route('reservationSalles')}}" >
+                @csrf
+
+                @if($salle->etat == 0 )
+                <input type="hidden" name="id" value="{{ $salle->id }}" />
+                <input type="hidden" name="etat" value="1" />
+                @endif
+                
+                <button class="btn btn-danger" type="submit">Rendre dispo</button>
+            </form>
+
         @endif
         
     @endforeach

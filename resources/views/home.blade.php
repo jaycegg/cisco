@@ -14,6 +14,8 @@
                     @endif
 
                     <a class="btn btn-dark" href="{{route('dash')}}">Dashboard Admin</a>
+                    <a class="btn btn-danger" href="{{route('salleResa')}}">Réservations salles</a>
+                    <a class="btn btn-success" href="{{route('materielResa')}}">Réservations matériels</a>
 
                     <!-- Bouton pour se déconnecter grâce à la fonction logout -->
                     <form id="logout-form" action="{{ url('logout') }}" method="POST">
