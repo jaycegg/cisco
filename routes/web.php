@@ -27,8 +27,15 @@ Route::get('/', function () {
 
 
 /* Route pouvant modifier les booleens concernant les etats */
-Route::get('/reservation/salles', [SalleController::class, 'showEtat'])->name('salleResa');
-Route::post('/reservation/salles', [SalleController::class, 'reserver']);
+/* Salles */
+Route::group(['middleware' => 'auth'],function(){
+    Route::get('/reservation/salles', [SalleController::class, 'showEtat'])->name('salleResa');
+    Route::post('/reservation/salles', [SalleController::class, 'reserver'])->name('reservationSalles');
+});
+
+/* Materiels */
+Route::get('/reservation/materiels', [MaterielController::class, 'showEtat'])->name('materielResa');
+Route::post('/reservation/materiels/{materiel}', [MaterielController::class, 'reserver'])->name('resaMatUp');
 
 /* Routes spécifiques concernant l'administrateur */
 Route::group(['middleware' => ['admin']], function () {

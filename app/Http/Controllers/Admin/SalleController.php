@@ -5,9 +5,32 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Salle;
+use DB;
 
 class SalleController extends Controller
 {
+     /**
+     * Liste des salles réservées ou non
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showEtat(){
+        $salle_id = Salle::all();
+        return view('gestion.salle', compact('salle_id'));
+    }
+
+    public function reserver(Request $request)
+    {
+        $salle_id = Salle::all();
+        
+        $all = $request->except('_token');
+        $data = Salle::where('id', $request->id)->get();
+        $update = Salle::where('id', $request->id)->update($all);
+
+        return back();
+
+    }
+
     /**
      * Display a listing of the resource.
      *
