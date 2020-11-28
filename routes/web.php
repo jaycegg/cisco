@@ -25,6 +25,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 /* Route pouvant modifier les booleens concernant les etats */
 /* Salles */
 Route::group(['middleware' => 'auth'],function(){
