@@ -3,82 +3,103 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Materiel;
+
 
 class MaterielController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
     {
-        //
-    }
+        /**
+         * Display a listing of the resource.
+         *
+         * @return \Illuminate\Http\Response
+         */
+        public function index()
+        {
+           // $materiel = getall();
+            $materiels = Materiel::all();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+            return view('materiel.index')//chemin
+                ->with('materiels', $materiels);
+           // return view('materiel.index');
+        }
+    
+        /**
+         * Show the form for creating a new resource.
+         *
+         * @return \Illuminate\Http\Response
+         */
+        public function create()
+        {
+            return view('materiel.create');
+        }
+    
+        /**
+         * Store a newly created resource in storage.
+         *
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
+         */
+        public function store(Request $request)
     {
-        //
+        $article = $request->user()->create([
+            'title' => $request->input('title'),
+            'content' => $request->input('content')
+        ]);
+        return redirect()->route('materiel.show', [$article]);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    
+        /**
+         * Display the specified resource.
+         *
+         * @param  \App\Models\Article  $article
+         * @return \Illuminate\Http\Response
+         */
+        public function show(Materiel $article)
+        {
+            return view('materiel.show', [
+                'materiel' => $article
+            ]);
+        }
+    
+        /**
+         * Show the form for editing the specified resource.
+         *
+         * @param  \App\Models\Article  $article
+         * @return \Illuminate\Http\Response
+         */
+        public function edit(Materiel $article)
+        {
+            return view('materiel.update', [
+                'materiel' => $article
+            ]);
+        }
+    
+        /**
+         * Update the specified resource in storage.
+         *
+         * @param  \Illuminate\Http\Request  $request
+         * @param  \App\Models\Article  $article
+         * @return \Illuminate\Http\Response
+         */
+        public function update(Request $request, Materiel $article)
     {
-        //
+        $article->update([
+            'title' => $request->input('title'),
+            'content' => $request->input('content')
+        ]);
+        return redirect()->route('materiel.show', [$article]);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    
+        /**
+         * Remove the specified resource from storage.
+         *
+         * @param  \App\Models\Article  $article
+         * @return \Illuminate\Http\Response
+         */
+        public function destroy(Materiel $article)
+        {
+            $article->delete();
+            return redirect()->route('materiel.index');
+        }
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-}

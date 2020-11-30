@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSalleTable extends Migration
+class CreateMaterielsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateSalleTable extends Migration
      */
     public function up()
     {
-        Schema::create('salle', function (Blueprint $table) {
+        Schema::create('materiels', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-
-            $table->foreignId('materiel_id')->constrained('materiel');
-            $table->foreignId('video_id')->constrained('video');
+            $table->string('categorie');
+            $table->tinyInteger('etat');
         });
     }
 
@@ -29,6 +28,6 @@ class CreateSalleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('salle');
+        Schema::dropIfExists('materiels');
     }
 }

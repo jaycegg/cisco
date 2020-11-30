@@ -13,7 +13,9 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        return view('ticket.index', [
+            'ticket' => Ticket::all()
+        ]);
     }
 
     /**
@@ -23,7 +25,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        //
+        return view('ticket.create');
     }
 
     /**
@@ -33,52 +35,65 @@ class TicketController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
-    }
+{
+    $article = $request->user()->create([
+        'title' => $request->input('title'),
+        'content' => $request->input('content')
+    ]);
+    return redirect()->route('ticket.show', [$article]);
+}
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Ticket $article)
     {
-        //
+        return view('ticket.show', [
+            'ticket' => $article
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Ticket $article)
     {
-        //
+        return view('ticket.update', [
+            'ticket' => $article
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    public function update(Request $request, Ticket $article)
+{
+    $article->update([
+        'title' => $request->input('title'),
+        'content' => $request->input('content')
+    ]);
+    return redirect()->route('ticket.show', [$article]);
+}
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Ticket $article)
     {
-        //
+        $article->delete();
+        return redirect()->route('ticket.index');
     }
 }
