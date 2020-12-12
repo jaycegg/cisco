@@ -44,7 +44,7 @@ class LogController extends Controller
 
         Log::create($request->all());
 
-        return redirect()->route('dash.logs.index')
+        return redirect()->route('logs.index')
             ->with('success', 'Log créé');
     }
 
@@ -56,7 +56,8 @@ class LogController extends Controller
      */
     public function show($id)
     {
-        return view('dash.logs.show', compact('id'));
+        $log = Log::find($id);
+        return view('dash.logs.show', compact('log'));
     }
 
     /**
@@ -67,7 +68,8 @@ class LogController extends Controller
      */
     public function edit($id)
     {
-        return view('dash.logs.edit', compact('id'));
+        $log = Log::find($id);
+        return view('dash.logs.edit', compact('log'));
     }
 
     /**
@@ -84,9 +86,9 @@ class LogController extends Controller
             'description' => 'required',
         ]);
 
-        $id->update($request->all());
+        Log::find($id)->update($request->all());
 
-        return redirect()->route('dash.logs.index')
+        return redirect()->route('logs.index')
             ->with('success', 'Log modifié');
     }
 
@@ -98,9 +100,9 @@ class LogController extends Controller
      */
     public function destroy($id)
     {
-        $id->delete();
+        Log::where('id', $id)->delete();
 
-        return redirect()->route('dash.logs.index')
+        return redirect()->route('logs.index')
             ->with('success', 'Log supprimé');
     }
 }

@@ -44,7 +44,7 @@ class CampusController extends Controller
 
         Campus::create($request->all());
 
-        return redirect()->route('dash.campuses.index')
+        return redirect()->route('campuses.index')
             ->with('success', 'Campus créé');
     }
 
@@ -56,7 +56,8 @@ class CampusController extends Controller
      */
     public function show($id)
     {
-        return view('dash.campuses.show', compact('id'));
+        $campus = Campus::find($id);
+        return view('dash.campuses.show', compact('campus'));
     }
 
     /**
@@ -67,7 +68,8 @@ class CampusController extends Controller
      */
     public function edit($id)
     {
-        return view('dash.campuses.edit', compact('id'));
+        $campus = Campus::find($id);
+        return view('dash.campuses.edit', compact('campus'));
     }
 
     /**
@@ -84,9 +86,9 @@ class CampusController extends Controller
             'pays' => 'required',
         ]);
 
-        $id->update($request->all());
+        Campus::find($id)->update($request->all());
 
-        return redirect()->route('dash.campuses.index')
+        return redirect()->route('campuses.index')
             ->with('success', 'Campus modifié');
     }
 
@@ -98,9 +100,9 @@ class CampusController extends Controller
      */
     public function destroy($id)
     {
-        $id->delete();
+        Campus::where('id', $id)->delete();
 
-        return redirect()->route('dash.campuses.index')
+        return redirect()->route('campuses.index')
             ->with('success', 'Campus supprimé');
     }
 }

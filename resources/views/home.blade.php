@@ -18,6 +18,7 @@
                     
                     <a class="btn btn-danger" href="{{route('salleResa')}}">Réservations salles</a>
                     <a class="btn btn-success" href="{{route('materielResa')}}">Réservations matériels</a>
+                    <a class="btn btn-primary" href="{{url('events')}}">Calendrier</a>
 
 
 

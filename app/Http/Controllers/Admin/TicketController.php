@@ -50,7 +50,7 @@ class TicketController extends Controller
 
        Ticket::create($request->all());
 
-       return redirect()->route('dash.tickets.index')
+       return redirect()->route('tickets.index')
            ->with('success', 'Ticket créé');
    }
 
@@ -62,7 +62,8 @@ class TicketController extends Controller
     */
    public function show($id)
    {
-       return view('dash.tickets.show', compact('id'));
+       $ticket = Ticket::find($id);
+       return view('dash.tickets.show', compact('ticket'));
    }
 
    /**
@@ -73,7 +74,8 @@ class TicketController extends Controller
     */
    public function edit($id)
    {
-       return view('dash.tickets.edit', compact('id'));
+       $ticket = Ticket::find($id);
+       return view('dash.tickets.edit', compact('ticket'));
    }
 
    /**
@@ -96,9 +98,9 @@ class TicketController extends Controller
         'user_id' => 'required',
        ]);
 
-       $id->update($request->all());
+       Ticket::find($id)->update($request->all());
 
-       return redirect()->route('dash.tickets.index')
+       return redirect()->route('tickets.index')
            ->with('success', 'Ticket modifié');
    }
 
@@ -110,9 +112,9 @@ class TicketController extends Controller
     */
    public function destroy($id)
    {
-       $id->delete();
+       Ticket::where('id', $id)->delete();
 
-       return redirect()->route('dash.tickets.index')
+       return redirect()->route('tickets.index')
            ->with('success', 'Ticket supprimé');
    }
 }

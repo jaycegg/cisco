@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\CampusController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::resource('campuses', CampusController::class);
     Route::resource('tickets', TicketController::class);
     Route::resource('users', UserController::class);
+    Route::resource('events', EventController::class);
 
 });
 

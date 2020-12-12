@@ -17,6 +17,7 @@ class CreateCampusesTable extends Migration
             $table->id();
             $table->string('ville');
             $table->string('pays');
+            $table->timestamps();
         });
     }
 

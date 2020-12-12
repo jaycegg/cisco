@@ -46,7 +46,7 @@ class MaterielController extends Controller
 
        Materiel::create($request->all());
 
-       return redirect()->route('dash.materiels.index')
+       return redirect()->route('materiels.index')
            ->with('success', 'Matériel créé');
    }
 
@@ -58,7 +58,8 @@ class MaterielController extends Controller
     */
    public function show($id)
    {
-       return view('dash.materiels.show', compact('id'));
+       $materiel = Materiel::find($id);
+       return view('dash.materiels.show', compact('materiel'));
    }
 
    /**
@@ -69,7 +70,8 @@ class MaterielController extends Controller
     */
    public function edit($id)
    {
-       return view('dash.materiels.edit', compact('id'));
+        $materiel = Materiel::find($id);
+        return view('dash.materiels.edit', compact('materiel'));
    }
 
    /**
@@ -88,9 +90,9 @@ class MaterielController extends Controller
         'campuses_id' => 'required',
        ]);
 
-       $id->update($request->all());
+       Materiel::find($id)->update($request->all());
 
-       return redirect()->route('dash.materiels.index')
+       return redirect()->route('materiels.index')
            ->with('success', 'Matériel modifié');
    }
 
@@ -102,9 +104,9 @@ class MaterielController extends Controller
     */
    public function destroy($id)
    {
-       $id->delete();
+        Log::where('id', $id)->delete();
 
-       return redirect()->route('dash.materiels.index')
-           ->with('success', 'Matériel supprimé');
+        return redirect()->route('materiels.index')
+            ->with('success', 'Matériel supprimé');
    }
 }

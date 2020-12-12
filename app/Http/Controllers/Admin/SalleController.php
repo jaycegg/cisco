@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Salle;
+use App\Models\Campus;
 use DB;
 
 class SalleController extends Controller
@@ -19,6 +20,7 @@ class SalleController extends Controller
         return view('gestion.salle', compact('salle_id'));
     }
 
+    // Fonction de réservation de salle, change le booleen
     public function reserver(Request $request)
     {
         $salle_id = Salle::all();
@@ -67,7 +69,7 @@ class SalleController extends Controller
 
         Salle::create($request->all());
 
-        return redirect()->route('dash.salles.index')
+        return redirect()->route('salles.index')
             ->with('success', 'Salle créée');
     }
 
@@ -79,7 +81,8 @@ class SalleController extends Controller
      */
     public function show($id)
     {
-        return view('dash.salles.show', compact('id'));
+        $salle = Salle::find($id);
+        return view('dash.salles.show', compact('salle'));
     }
 
     /**
@@ -90,7 +93,8 @@ class SalleController extends Controller
      */
     public function edit($id)
     {
-        return view('dash.salles.edit', compact('id'));
+        $salle = Salle::find($id);
+        return view('dash.salles.edit', compact('salle'));
     }
 
     /**
@@ -107,9 +111,9 @@ class SalleController extends Controller
             'etat' => 'required',
         ]);
 
-        $id->update($request->all());
+        Salle::find($id)->update($request->all());
 
-        return redirect()->route('dash.salles.index')
+        return redirect()->route('salles.index')
             ->with('success', 'Salle modifiée');
     }
 
@@ -121,9 +125,9 @@ class SalleController extends Controller
      */
     public function destroy($id)
     {
-        $id->delete();
+        Salle::where('id', $id)->delete();
 
-        return redirect()->route('dash.salles.index')
+        return redirect()->route('salles.index')
             ->with('success', 'Salle supprimée');
     }
 }
