@@ -44,7 +44,7 @@ class VideoController extends Controller
 
        Video::create($request->all());
 
-       return redirect()->route('dash.videos.index')
+       return redirect()->route('videos.index')
            ->with('success', 'Video créé');
    }
 
@@ -56,7 +56,8 @@ class VideoController extends Controller
     */
    public function show($id)
    {
-       return view('dash.videos.show', compact('id'));
+        $video = Video::find($id);
+        return view('dash.videos.show', compact('video'));
    }
 
    /**
@@ -67,7 +68,8 @@ class VideoController extends Controller
     */
    public function edit($id)
    {
-       return view('dash.videos.edit', compact('id'));
+        $video = Video::find($id);
+        return view('dash.videos.edit', compact('video'));
    }
 
    /**
@@ -86,7 +88,9 @@ class VideoController extends Controller
 
        $id->update($request->all());
 
-       return redirect()->route('dash.videos.index')
+       $video = Video::find($id);
+
+       return redirect()->route('videos.index')
            ->with('success', 'Video modifié');
    }
 
@@ -98,9 +102,9 @@ class VideoController extends Controller
     */
    public function destroy($id)
    {
-       $id->delete();
+        Video::where('id', $id)->delete();
 
-       return redirect()->route('dash.videos.index')
+       return redirect()->route('videos.index')
            ->with('success', 'Video supprimé');
    }
 }

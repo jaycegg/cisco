@@ -53,7 +53,7 @@ class UserController extends Controller
 
        User::create($request->all());
 
-       return redirect()->route('dash.users.index')
+       return redirect()->route('users.index')
            ->with('success', 'Utilisateur créé');
    }
 
@@ -65,7 +65,8 @@ class UserController extends Controller
     */
    public function show($id)
    {
-       return view('dash.users.show', compact('id'));
+        $user = User::find($id);
+        return view('dash.users.show', compact('user'));
    }
 
    /**
@@ -76,7 +77,8 @@ class UserController extends Controller
     */
    public function edit($id)
    {
-       return view('dash.users.edit', compact('id'));
+       $user = User::find($id);
+       return view('dash.users.edit', compact('user'));
    }
 
    /**
@@ -96,9 +98,9 @@ class UserController extends Controller
         'roles_id' => 'required',
        ]);
 
-       $id->update($request->all());
+       User::find($id)->update($request->all());
 
-       return redirect()->route('dash.users.index')
+       return redirect()->route('users.index')
            ->with('success', 'Utilisateur modifié');
    }
 
@@ -110,9 +112,9 @@ class UserController extends Controller
     */
    public function destroy($id)
    {
-       $id->delete();
+        User::where('id', $id)->delete();
 
-       return redirect()->route('dash.users.index')
-           ->with('success', 'Utilisateur supprimé');
+        return redirect()->route('users.index')
+            ->with('success', 'Utilisateur supprimé');
    }
 }
