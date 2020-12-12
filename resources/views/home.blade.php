@@ -21,6 +21,7 @@
                     <a class="btn btn-primary" href="{{url('events')}}">Calendrier</a>
 
 
+
                     <!-- Bouton pour se déconnecter grâce à la fonction logout -->
                     <form id="logout-form" action="{{ url('logout') }}" method="POST">
                         {{ csrf_field() }}
