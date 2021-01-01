@@ -18,11 +18,13 @@
                 <td>{{$user->prenom}}</td>
                 <td>{{$user->email}}</td>
                 <td>{{ App\Models\Campus::find($user->campuses_id)->ville}}</td>
-                <a class="btn btn-primary btn-sm" href="{{route('users.edit', $user->id)}}">Editer</a>
-                {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id]]) !!}
-                    <button type="submit" style="display: inline;" class="btn btn-danger btn-sm">Supprimer</button>
-                {!! Form::close() !!}
-                <a class="btn btn-sm btn-dark" href="{{route('users.show', $user->id)}}">Voir</a>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="{{route('users.edit', $user->id)}}">Editer</a>
+                    {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id]]) !!}
+                        <button type="submit" style="display: inline;" class="btn btn-danger btn-sm">Supprimer</button>
+                    {!! Form::close() !!}
+                    <a class="btn btn-sm btn-dark" href="{{route('users.show', $user->id)}}">Voir</a>
+                </td>
             </tr>   
         @endforeach
     </tbody>

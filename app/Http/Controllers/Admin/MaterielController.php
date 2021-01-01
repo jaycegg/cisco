@@ -8,6 +8,29 @@ use App\Models\Materiel;
 
 class MaterielController extends Controller
 {
+         /**
+     * Liste du matériel réservé ou non
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showEtat(){
+        $materiel_id = Materiel::all();
+        return view('reservations.materielResa', compact('materiel_id'));
+    }
+
+    // Fonction de réservation de salle, change le booleen
+    public function reserver(Request $request)
+    {
+        $materiel_id = Materiel::all();
+        
+        $all = $request->except('_token');
+        $data = Materiel::where('id', $request->id)->get();
+        $update = Materiel::where('id', $request->id)->update($all);
+
+        return back();
+
+    }
+
     /**
     * Display a listing of the resource.
     *
@@ -42,6 +65,7 @@ class MaterielController extends Controller
            'categorie' => 'required',
            'etat' => 'required',
            'campuses_id' => 'required',
+           'salles_id' => 'required',
        ]);
 
        Materiel::create($request->all());
@@ -88,6 +112,7 @@ class MaterielController extends Controller
         'categorie' => 'required',
         'etat' => 'required',
         'campuses_id' => 'required',
+        'salles_id' => 'required',
        ]);
 
        Materiel::find($id)->update($request->all());

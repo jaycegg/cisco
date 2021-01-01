@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CampusController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\NetacadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,11 +22,14 @@ use App\Http\Controllers\EventController;
 |
 */
 
+/*********************
+ * La route pour accéder aux logs -> /log-reader (librairie complémentaire)
+ *********************/
+
 /* Route de la première page */
 Route::get('/', function () {
     return view('welcome');
 });
-
 
 /* Route pouvant modifier les booleens concernant les etats */
 /* Salles */
@@ -36,7 +40,14 @@ Route::group(['middleware' => 'auth'],function(){
 
 /* Materiels */
 Route::get('/reservation/materiels', [MaterielController::class, 'showEtat'])->name('materielResa');
-Route::post('/reservation/materiels/{materiel}', [MaterielController::class, 'reserver'])->name('resaMatUp');
+Route::post('/reservation/materiels', [MaterielController::class, 'reserver'])->name('reservationMateriels');
+
+// Netacad - Promotion
+Route::get('/netacad', [NetacadController::class, 'index'])->name('netacad');
+Route::post('/upload', [NetacadController::class, 'upload'])->name('netacadUpload');
+
+/* Gestion des tickets */
+Route::get('/gestion/tickets', [TicketController::class, 'gestionTickets'])->name('gestionTickets');
 
 /* Routes spécifiques concernant l'administrateur */
 Route::group(['middleware' => ['admin']], function () {

@@ -20,8 +20,11 @@
     {!! Form::label('campuses_id', 'Campus') !!}
     {!! Form::select('campuses_id', App\Models\Campus::pluck('ville', 'id')) !!}
 
+    {!! Form::label('salles_id', 'Salle') !!}
+    {!! Form::select('salles_id', App\Models\Salle::pluck('nom', 'id')) !!}
+
     {!! Form::submit('Créer', ['class' => 'btn btn-sm btn-success']) !!}
 {!! Form::close() !!}
 
-<a href="{{ url()->previous() }}" class="btn btn-dark">Retour</a>
+<a href="{{ route('materiels.index') }}" class="btn btn-dark">Retour</a>
 @endsection

@@ -8,5 +8,5 @@
 <h4>Description</h4>
 <p>{{$log->description}}</p>
 
-<a href="{{ url()->previous() }}" class="btn btn-dark">Retour</a>
+<a href="{{ route('logs.index') }}" class="btn btn-dark">Retour</a>
 @endsection
