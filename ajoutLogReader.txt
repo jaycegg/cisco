@@ -1,0 +1,3 @@
+Ajout par composer de Log-reader
+Voir la doc pour la config (simple)
+Fichiers du dossier vendor modifiés (pas de composer update)
