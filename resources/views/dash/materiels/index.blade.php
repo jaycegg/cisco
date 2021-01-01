@@ -8,6 +8,7 @@
         <th>Catégorie</th>
         <th>Etat</th>
         <th>Campus</th>
+        <th>Salle</th>
         <th>Actions</th>
     </thead>
 
@@ -16,18 +17,20 @@
             <tr>
                 <td>{{$materiel->nom}}</td>
                 <td>{{$materiel->categorie}}</td>               
-                @if ($salle->etat == 1)
+                @if ($materiel->etat == 1)
                     <td>Disponible</td>
                 @else
                     <td>Indisponible</td>
                 @endif
                 <td>{{ App\Models\Campus::find($materiel->campuses_id)->ville}}</td>
+                <td>{{ App\Models\Salle::find($materiel->salles_id)->nom}}</td>
                 <td>
-                <a class="btn btn-primary btn-sm" href="{{route('materiels.edit', $salle->id)}}">Editer</a>
-                {!! Form::open(['method' => 'DELETE','route' => ['materiels.destroy', $salle->id]]) !!}
-                    <button type="submit" style="display: inline;" class="btn btn-danger btn-sm">Supprimer</button>
-                {!! Form::close() !!}
-                <a class="btn btn-sm btn-dark" href="{{route('materiels.show', $materiel->id)}}">Voir</a>
+                    <a class="btn btn-primary btn-sm" href="{{route('materiels.edit', $materiel->id)}}">Editer</a>
+                    {!! Form::open(['method' => 'DELETE','route' => ['materiels.destroy', $materiel->id]]) !!}
+                        <button type="submit" style="display: inline;" class="btn btn-danger btn-sm">Supprimer</button>
+                    {!! Form::close() !!}
+                    <a class="btn btn-sm btn-dark" href="{{route('materiels.show', $materiel->id)}}">Voir</a>
+                </td>
             </tr>   
         @endforeach
     </tbody>

@@ -7,7 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\Ticket;
 
 class TicketController extends Controller
-{    
+{  
+    
+    // Gestion des tickets
+    public function gestionTickets(){
+        return view('gestion.ticket');
+    }
+
     /**
     * Display a listing of the resource.
     *

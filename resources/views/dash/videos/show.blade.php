@@ -13,5 +13,5 @@
         <th>{{$video->chemin}}</th>
         <th>{{$video->nom}}</th>
     </tbody>
-    <a href="{{ url()->previous() }}" class="btn btn-dark">Retour</a>
+    <a href="{{ route('videos.index') }}" class="btn btn-dark">Retour</a>
 @endsection

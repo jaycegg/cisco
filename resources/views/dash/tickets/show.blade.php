@@ -22,5 +22,5 @@
         <th>{{ App\Models\Salle::find($ticket->salles_id)->nom}}</th>
         <th>{{ App\Models\User::find($ticket->userss_id)->name}}</th>
     </tbody>
-    <a href="{{ url()->previous() }}" class="btn btn-dark">Retour</a>
+    <a href="{{ route('tickets.index') }}" class="btn btn-dark">Retour</a>
 @endsection

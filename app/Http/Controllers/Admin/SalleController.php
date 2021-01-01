@@ -17,7 +17,7 @@ class SalleController extends Controller
      */
     public function showEtat(){
         $salle_id = Salle::all();
-        return view('gestion.salle', compact('salle_id'));
+        return view('reservations.salleResa', compact('salle_id'));
     }
 
     // Fonction de réservation de salle, change le booleen

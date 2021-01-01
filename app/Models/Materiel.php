@@ -18,5 +18,7 @@ class Materiel extends Model
         'nom',
         'categorie',
         'etat',
+        'salles_id',
+        'campuses_id'
     ];
 }

@@ -25,11 +25,13 @@
                 <td>{{ App\Models\Materiel::find($ticket->materiels_id)->nom}}</td>
                 <td>{{ App\Models\Salle::find($ticket->salles_id)->nom}}</td>
                 <td>{{ App\Models\User::find($ticket->users_id)->name}}</td>
-                <a class="btn btn-primary btn-sm" href="{{route('tickets.edit', $ticket->id)}}">Editer</a>
-                {!! Form::open(['method' => 'DELETE','route' => ['tickets.destroy', $ticket->id]]) !!}
-                    <button type="submit" style="display: inline;" class="btn btn-danger btn-sm">Supprimer</button>
-                {!! Form::close() !!}
-                <a class="btn btn-sm btn-dark" href="{{route('tickets.show', $ticket->id)}}">Voir</a>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="{{route('tickets.edit', $ticket->id)}}">Editer</a>
+                    {!! Form::open(['method' => 'DELETE','route' => ['tickets.destroy', $ticket->id]]) !!}
+                        <button type="submit" style="display: inline;" class="btn btn-danger btn-sm">Supprimer</button>
+                    {!! Form::close() !!}
+                    <a class="btn btn-sm btn-dark" href="{{route('tickets.show', $ticket->id)}}">Voir</a>
+                </td>
             </tr>   
         @endforeach
     </tbody>

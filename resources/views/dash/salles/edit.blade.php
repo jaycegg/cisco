@@ -14,12 +14,11 @@
         {!! Form::label('etat2', 'Non disponible') !!}
         {!! Form::radio('etat', '0') !!}
 
-        
         {!! Form::label('campuses_id', 'Campus') !!}
         {!! Form::select('campuses_id', App\Models\Campus::pluck('ville', 'id')) !!}
 
         {!! Form::submit('Modifier', ['class' => 'btn btn-sm btn-success']) !!}
     {!! Form::close() !!}
 
-    <a href="{{ url()->previous() }}" class="btn btn-dark">Retour</a>
+    <a href="{{ route('salles.index') }}" class="btn btn-dark">Retour</a>
 @endsection

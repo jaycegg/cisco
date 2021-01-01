@@ -14,11 +14,12 @@
                 <td>{{ $log->created_at }}</td>
                 <td>{{ $campus->description }}</td>
                 <td>
-                <a class="btn btn-primary btn-sm" href="{{route('logs.edit', $log->id)}}">Editer</a>
-                {!! Form::open(['method' => 'DELETE','route' => ['logs.destroy', $log->id]]) !!}
-                    <button type="submit" style="display: inline;" class="btn btn-danger btn-sm">Supprimer</button>
-                {!! Form::close() !!}
-                <a class="btn btn-sm btn-dark" href="{{route('logs.show', $log->id)}}">Voir</a>
+                    <a class="btn btn-primary btn-sm" href="{{route('logs.edit', $log->id)}}">Editer</a>
+                    {!! Form::open(['method' => 'DELETE','route' => ['logs.destroy', $log->id]]) !!}
+                        <button type="submit" style="display: inline;" class="btn btn-danger btn-sm">Supprimer</button>
+                    {!! Form::close() !!}
+                    <a class="btn btn-sm btn-dark" href="{{route('logs.show', $log->id)}}">Voir</a>
+                </td>
             </tr>   
         @endforeach
     </tbody>
