@@ -35,8 +35,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
 /* Route pouvant modifier les booleens concernant les etats */
 /* Salles */
 Route::group(['middleware' => 'auth'],function(){
@@ -50,6 +48,7 @@ Route::post('/reservation/materiels', [MaterielController::class, 'reserver'])->
 
 // Netacad - Promotion
 Route::get('/netacad', [NetacadController::class, 'index'])->name('netacad');
+
 //Import CSV
 Route::post('/upload', [NetacadController::class, 'upload'])->name('netacadUpload');
 Route::post('/upload/salles', [NetacadController::class, 'uploadSalle'])->name('netacadUploadSalle');
