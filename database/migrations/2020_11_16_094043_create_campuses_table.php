@@ -19,6 +19,9 @@ class CreateCampusesTable extends Migration
             $table->string('pays');
             $table->timestamps();
         });
+
+        /* Va insérer automatiquement ces données dans la BDD */
+        DB::table('campuses')->insert(['ville' => 'Le Mans', 'pays' => 'France']);
     }
 
     /**

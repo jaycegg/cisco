@@ -17,12 +17,13 @@ class CreateTicketsTable extends Migration
             $table->id();
             $table->string('type');
             $table->timestamps();
-            $table->dateTime('dateEcheance');
             $table->string('description');
-            $table->string('etat')->default('En cours');
+            $table->boolean('etat')->default(1);
           
             $table->foreignId('materiels_id')->nullable()->constrained('materiels');
             $table->foreignId('salles_id')->nullable()->constrained('salles');
+            
+            $table->foreignId('events_id')->nullable()->constrained('events');
 
             $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users');
