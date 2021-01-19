@@ -33,6 +33,53 @@ class SalleController extends Controller
 
     }
 
+    // Créer un template de CSV Salles
+    public function exportCsv(Request $request){
+        // Nom du CSV
+        $fileName = 'salles.csv';
+        $salles = Salle::all();
+  
+        $headers = array(
+          // Paramètres du CSV
+          "Content-type"        => "text/csv",
+          "Content-Disposition" => "attachment; filename=$fileName",
+          "Pragma"              => "no-cache",
+          "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+          "Expires"             => "0"
+        );
+  
+        //Différentes colonnes du CSV
+        $columns = array('nom', 'etat', 'campus', 'date');
+  
+        $callback = function() use($salles, $columns) {
+          // Passe le fichier CSV en mode écriture
+          $file = fopen('php://output', 'w');
+          fputcsv($file, $columns);
+  
+          // Donne accès à toutes les salles dans la liste 
+            foreach ($salles as $salle) {
+                $row['nom'] = $salle->nom;
+
+                if($salle->etat == 1){
+                    $row['etat'] = "Disponible";
+                }else{
+                    $row['etat'] = "Indisponible";
+                }
+
+                $nomCampus = $salle->campuses_id;
+                $row['campus'] = Campus::find($nomCampus)->ville;
+                $row['date'] = $salle->updated_at;
+              
+                fputcsv($file, array($row['nom'], $row['etat'], $row['campus'], $row['date']));
+            }          
+        
+          // Ferme le ficher après écriture
+          fclose($file);
+        };
+  
+        return response()->stream($callback, 200, $headers);
+      }
+
     /**
      * Display a listing of the resource.
      *

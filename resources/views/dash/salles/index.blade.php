@@ -36,4 +36,23 @@
     <a class="btn btn-success btn-sm" href="{{ route('salles.create') }}">Créer une salle</a>
     
     <a href="{{ route('dash') }}" class="btn btn-dark">Retour</a>
+
+    <!-- Créer le template CSV -->
+    <div class="row">
+        <div class="col-sm-3">
+            <p>Télécharger la liste des salles</p>
+        </div>
+        <div class="col-sm-3">
+            <span data-href="/liste/salles/csv" id="export" class="btn btn-success" onclick="exportTasks(event.target);">Exporter CSV</span>
+        </div>
+    </div>
+
+    <!-- JS pour télécharger le template de CSV -->
+    <script>
+        function exportTasks(_this) {
+            let _url = $(_this).data('href');
+            window.location.href = _url;
+        }
+    </script>
+
 @endsection

@@ -14,6 +14,45 @@ class UserController extends Controller
         return view('dash.dashboard');
     }
 
+    // Créer un template de CSV Promotion
+    public function exportCsv(Request $request){
+        // Nom du CSV
+        $fileName = 'promotion.csv';
+        $users = User::all();
+  
+        $headers = array(
+          // Paramètres du CSV
+          "Content-type"        => "text/csv",
+          "Content-Disposition" => "attachment; filename=$fileName",
+          "Pragma"              => "no-cache",
+          "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+          "Expires"             => "0"
+        );
+  
+        //Différentes colonnes du CSV
+        $columns = array('name', 'prenom', 'email');
+  
+        $callback = function() use($users, $columns) {
+          // Passe le fichier CSV en mode écriture
+          $file = fopen('php://output', 'w');
+          fputcsv($file, $columns);
+  
+          // Donne accès à tous les utilisateurs dans la liste 
+            foreach ($users as $user) {
+              $row['name'] = $user->name;
+              $row['prenom'] = $user->prenom;
+              $row['email'] = $user->email;
+  
+              fputcsv($file, array($row['name'], $row['prenom'], $row['email']));
+            }          
+        
+          // Ferme le ficher après écriture
+          fclose($file);
+        };
+  
+        return response()->stream($callback, 200, $headers);
+      }
+      
     /**
     * Display a listing of the resource.
     *

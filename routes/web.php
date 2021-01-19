@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 use App\Http\Controllers\Admin\SalleController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Admin\MaterielController;
@@ -44,7 +48,15 @@ Route::post('/reservation/materiels', [MaterielController::class, 'reserver'])->
 
 // Netacad - Promotion
 Route::get('/netacad', [NetacadController::class, 'index'])->name('netacad');
+
+//Import CSV
 Route::post('/upload', [NetacadController::class, 'upload'])->name('netacadUpload');
+Route::post('/upload/salles', [NetacadController::class, 'uploadSalle'])->name('netacadUploadSalle');
+Route::post('/upload/materiels', [NetacadController::class, 'uploadMateriel'])->name('netacadUploadMateriel');
+//Export CSV
+Route::get('/netacad/csv/salle', [NetacadController::class, 'exportCsvSalle']);
+Route::get('/netacad/csv/materiel', [NetacadController::class, 'exportCsvMateriel']);
+Route::get('/netacad/csv/promo', [NetacadController::class, 'exportCsv']);
 
 /* Gestion des tickets */
 Route::get('/gestion/tickets', [TicketController::class, 'gestionTickets'])->name('gestionTickets');
@@ -64,6 +76,10 @@ Route::group(['middleware' => ['admin']], function () {
     Route::resource('users', UserController::class);
     Route::resource('events', EventController::class);
 
+    // CSV avec toutes les données
+    Route::get('/liste/users/csv', [UserController::class, 'exportCsv']);
+    Route::get('/liste/materiels/csv', [MaterielController::class, 'exportCsv']);
+    Route::get('/liste/salles/csv', [SalleController::class, 'exportCsv']);
 });
 
 /* Route concernant l'authentification, le mot de passe oublié, logout, ect... */
