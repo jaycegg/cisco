@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
     
+    <!--Ici interface de réservation de Salle-->
     @foreach ($salle_id as $salle)
         @if ($salle->etat == True)
             

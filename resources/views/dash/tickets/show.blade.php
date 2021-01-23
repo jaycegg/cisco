@@ -17,10 +17,21 @@
         <th>{{$ticket->created_at}}</th>
         <th>{{$ticket->dateEcheance}}</th>
         <th>{{$ticket->description}}</th>
-        <th>{{$ticket->etat}}</th>
-        <th>{{ App\Models\Materiel::find($ticket->materiels_id)->ville}}</th>
+        
+        @if ($ticket->etat === 1)
+            <th>En cours</th>
+        @else
+            <th>Traité</th>
+        @endif
+        
+        @if ($ticket->materiels_id != Null)
+            <th>{{ App\Models\Materiel::find($ticket->materiels_id)->nom}}</th>
+        @elseif ($ticket->materiels_id == Null)
+            <th>Aucun</th>
+        @endif
+        
         <th>{{ App\Models\Salle::find($ticket->salles_id)->nom}}</th>
-        <th>{{ App\Models\User::find($ticket->userss_id)->name}}</th>
+        <th>{{ App\Models\User::find($ticket->users_id)->name}}</th>
     </tbody>
     <a href="{{ route('tickets.index') }}" class="btn btn-dark">Retour</a>
 @endsection

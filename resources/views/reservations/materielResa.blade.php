@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
     
+    <!--Ici interface de réservation de Matériel-->
     @foreach ($materiel_id as $materiel)
         @if ($materiel->etat == True)
             

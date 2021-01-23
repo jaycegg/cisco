@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
+use App\Models\Salle;
 
 class TicketController extends Controller
 {  
     
     // Gestion des tickets
     public function gestionTickets(){
-        return view('gestion.ticket');
+        $tickets = Ticket::all();
+        return view('gestion.ticket', compact('tickets'));
     }
 
     /**
