@@ -85,7 +85,6 @@ class MaterielController extends Controller
         return response()->stream($callback, 200, $headers);
       }
 
-      
     /**
     * Display a listing of the resource.
     *

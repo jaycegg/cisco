@@ -16,6 +16,7 @@ class Netacad extends Model
         if($value->count() == 0){
            DB::table('users')->insert($data);
         }
+
    }
    
    public static function insertDataSalle($data){
@@ -34,4 +35,3 @@ class Netacad extends Model
    }
 }
 
-}
