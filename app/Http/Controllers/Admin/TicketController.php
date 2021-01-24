@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\Salle;
+use App\Models\Materiel;
+use Illuminate\Support\Facades\Validator;
 
 class TicketController extends Controller
 {  
@@ -14,6 +16,34 @@ class TicketController extends Controller
     public function gestionTickets(){
         $tickets = Ticket::all();
         return view('gestion.ticket', compact('tickets'));
+    }
+    
+    // Accepter la réservation
+    // Etat -> 0 = Accepté, 1 = En cours, 2 = Refus
+    public function accepter(Request $request){
+        Materiel::where('id', '=', $request->input('idMa'))
+        ->update(['etat' => 0]);
+
+        ticket::where('id', '=', $request->input('idTi'))
+        ->update(['etat' => 0]);
+
+        return back();
+    }
+
+    public function accepterSalle(Request $request){
+        Salle::where('id', '=', $request->input('idSa'))
+        ->update(['etat' => 0]);
+
+        ticket::where('id', '=', $request->input('idTi'))
+        ->update(['etat' => 0]);
+        return back();
+    }
+
+    // Décliner la réservation
+    public function decliner(Request $request){
+        ticket::where('id', '=', $request->input('idTi'))
+        ->update(['etat' => 2]);
+        return back();
     }
 
     /**

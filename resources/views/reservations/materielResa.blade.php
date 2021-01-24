@@ -11,8 +11,8 @@
                 @csrf
 
                 @if($materiel->etat == 1 )
-                <input type="hidden" name="id" value="{{ $materiel->id }}" />
-                <input type="hidden" name="etat" value="0" />
+                    <input type="hidden" name="id" value="{{ $materiel->id }}" />
+                    <input type="hidden" name="etat" value="0" />
                 @endif
                 
                 <button class="btn btn-success" type="submit">

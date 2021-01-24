@@ -25,13 +25,13 @@ class Netacad extends Model
       if($value->count() == 0){
          DB::table('salles')->insert($data);
       }
- }
+   }
 
- public static function insertDataMateriel($data){
+   public static function insertDataMateriel($data){
 
-   $value=DB::table('materiels')->where('id', $data['id'])->get();
-   if($value->count() == 0){
-      DB::table('materiels')->insert($data);
+      $value=DB::table('materiels')->where('id', $data['id'])->get();
+      if($value->count() == 0){
+         DB::table('materiels')->insert($data);
+      }
    }
 }
-
