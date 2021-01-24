@@ -18,7 +18,7 @@ class CreateTicketsTable extends Migration
             $table->string('type');
             $table->timestamps();
             $table->string('description');
-            $table->boolean('etat')->default(1);
+            $table->tinyInteger('etat')->default(1);
           
             $table->foreignId('materiels_id')->nullable()->constrained('materiels');
             $table->foreignId('salles_id')->nullable()->constrained('salles');

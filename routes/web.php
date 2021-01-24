@@ -60,6 +60,9 @@ Route::get('/netacad/csv/promo', [NetacadController::class, 'exportCsv']);
 
 /* Gestion des tickets */
 Route::get('/gestion/tickets', [TicketController::class, 'gestionTickets'])->name('gestionTickets');
+Route::post('/gestion/tickets/materiel/valider', [TicketController::class, 'accepter'])->name('acMat');
+Route::post('/gestion/tickets/decliner', [TicketController::class, 'decliner'])->name('dec');
+Route::post('/gestion/tickets/salle/valider', [TicketController::class, 'accepterSalle'])->name('acSal');
 
 /* Routes spécifiques concernant l'administrateur */
 Route::group(['middleware' => ['admin']], function () {

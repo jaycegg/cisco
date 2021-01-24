@@ -16,7 +16,7 @@ class Ticket extends Model
      */
     protected $fillable = [
         'type',
-        'date',
+        'created_at',
         'dateEcheance',
         'description',
         'etat',
