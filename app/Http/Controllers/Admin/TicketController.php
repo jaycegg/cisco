@@ -24,7 +24,7 @@ class TicketController extends Controller
         Materiel::where('id', '=', $request->input('idMa'))
         ->update(['etat' => 0]);
 
-        ticket::where('id', '=', $request->input('idTi'))
+        Ticket::where('id', '=', $request->input('idTi'))
         ->update(['etat' => 0]);
 
         return back();
@@ -34,14 +34,14 @@ class TicketController extends Controller
         Salle::where('id', '=', $request->input('idSa'))
         ->update(['etat' => 0]);
 
-        ticket::where('id', '=', $request->input('idTi'))
+        Ticket::where('id', '=', $request->input('idTi'))
         ->update(['etat' => 0]);
         return back();
     }
 
     // Décliner la réservation
     public function decliner(Request $request){
-        ticket::where('id', '=', $request->input('idTi'))
+        Ticket::where('id', '=', $request->input('idTi'))
         ->update(['etat' => 2]);
         return back();
     }
