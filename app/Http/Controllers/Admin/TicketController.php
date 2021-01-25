@@ -24,6 +24,7 @@ class TicketController extends Controller
         Materiel::where('id', '=', $request->input('idMa'))
         ->update(['etat' => 0]);
 
+
         Ticket::where('id', '=', $request->input('idTi'))
         ->update(['etat' => 0]);
 
