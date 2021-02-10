@@ -57,7 +57,8 @@ jobs:
             - v1-dependencies-
 
       - run: composer update
-
+      - run : php artisan key:generate
+      
       - save_cache:
           key: v1-dependencies-{{ checksum "composer.json" }}
           paths:
@@ -71,8 +72,6 @@ jobs:
           key: node-v1-{{ checksum "package.json" }}
           paths:
             - node_modules
-
-      - run : php artisan key:generate
       
       # prepare the database
       #- run: php artisan migrate --env=testing --force
