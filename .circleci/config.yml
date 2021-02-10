@@ -8,8 +8,8 @@ jobs:
     docker:
       # Specify the version you desire here
       - image: circleci/php:7.3-node-browsers
-      #- image: circleci/mysql:5.7-ram
-      - image: circleci/mysql:8.0.4
+      - image: circleci/mysql:5.7-ram
+      #- image: circleci/mysql:8.0.4
         environment:
           MYSQL_DATABASE: cisco
           MYSQL_USER: root
@@ -56,16 +56,16 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: composer update
+      #- run: composer update
 
-      - save_cache:
-          key: v1-dependencies-{{ checksum "composer.json" }}
-          paths:
-            - ./vendor
-      - restore_cache:
-          keys:
-            - node-v1-{{ checksum "package.json" }}
-            - node-v1-
+      #- save_cache:
+          #key: v1-dependencies-{{ checksum "composer.json" }}
+          #paths:
+            #- ./vendor
+      #- restore_cache:
+          #keys:
+            #- node-v1-{{ checksum "package.json" }}
+            #- node-v1-
       - run: npm install
       - save_cache:
           key: node-v1-{{ checksum "package.json" }}
@@ -73,7 +73,7 @@ jobs:
             - node_modules
 
       # prepare the database
-      - run: php artisan migrate --env=testing --force
+      #- run: php artisan migrate --env=testing --force
       # run tests with phpunit or codecept
       #- run: ./vendor/bin/phpunit
 
