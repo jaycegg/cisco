@@ -13,9 +13,3 @@ yarn-error.log
 
 .fake
 .ionide
-app/.DS_Store
-public/images/.DS_Store
-public/js/.DS_Store
-resources/views/.DS_Store
-resources/views/dash/.DS_Store
-bootstrap/.DS_Store

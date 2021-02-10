@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
     
-    <div class="alignement">
     <h3>Vos demandes</h3>
 
     <h4>Demandes en cours</h4>
@@ -57,11 +56,5 @@
             @endif 
         @endif
     @endforeach 
-
-    <div class="btn">
-        <a href="{{ url()->route('home') }}" class="btn btn-dark">Retour</a>
-    </div>
-    </div>
-    
 
 @endsection

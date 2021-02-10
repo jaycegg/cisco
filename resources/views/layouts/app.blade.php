@@ -20,7 +20,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/moncss.css') }}" rel="stylesheet">
     
 </head>
 <body>
@@ -59,7 +58,7 @@
                         <!-- Menu si l'utilisateur est connecté -->
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="btn nav-link dropdown-toggle" style="background-color : #ffc853" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="btn btn-warning nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <!-- Affiche le nom de l'utilisateur -->
                                     {{ Auth::user()->prenom }} {{ Auth::user()->name }}
                                 </a>
@@ -69,7 +68,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Déconnexion') }}
+                                        {{ __('Déconnecter') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

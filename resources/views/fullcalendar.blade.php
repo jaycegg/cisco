@@ -54,7 +54,7 @@
 			<form class="form-horizontal" method="post" action="/addEvent">
             {!! Form::token() !!}
 			
-			  <div class="modal-header" style="background-color : #ffc853">
+			  <div class="modal-header">
 				
 				<h4 class="modal-title" id="myModalLabel">Ajouter une réservation de salle</h4>
 			  </div>
@@ -106,7 +106,7 @@
 			  </div>
 			  <div class="modal-footer">
 				
-				<button type="submit" class="btn" style="background-color : #ffc853">Sauver</button>
+				<button type="submit" class="btn btn-primary">Sauver</button>
 			  </div>
 			</form>
 			</div>
@@ -123,7 +123,7 @@
 			<form class="form-horizontal" method="POST" action="/editEventTitle">
             {!! Form::token() !!}
       
-			  <div class="modal-header" style="background-color : #ffc853">
+			  <div class="modal-header">
 				
 				<h4 class="modal-title" id="myModalLabel">Editer une réservation de salle</h4>
 			  </div>
@@ -184,7 +184,7 @@
 			  </div>
 			  <div class="modal-footer">
 				
-				<button type="submit" class="btn" style="background-color : #ffc853">Sauver</button>
+				<button type="submit" class="btn btn-primary">Sauver</button>
 			  </div>
 			</form>
 			</div>
