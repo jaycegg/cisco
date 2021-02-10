@@ -23,6 +23,7 @@ jobs:
 
       - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
       - run: sudo docker-php-ext-install zip
+      - run: sudo composer self-update
 
       # Download and cache dependencies
       - restore_cache:
@@ -31,9 +32,8 @@ jobs:
             - v1-dependencies-{{ checksum "composer.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-      
-      - run: sudo composer self-update
-      - run: composer install -n --prefer-dist
+
+      - run: composer update
 
       - save_cache:
           key: v1-dependencies-{{ checksum "composer.json" }}
