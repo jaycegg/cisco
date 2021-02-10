@@ -8,5 +8,5 @@
 <h4>Pays</h4>
 <p>{{$campus->pays}}</p>
 
-<a href="{{ url()->previous() }}" class="btn btn-dark">Retour</a>
+<a href="{{ route('campuses.index') }}" class="btn btn-dark">Retour</a>
 @endsection

@@ -14,6 +14,7 @@
 
 <h4>Campus</h4>
 <p>{{ App\Models\Materiel::find($materiel->campuses_id)->ville}}</p>
+<p>{{ App\Models\Salle::find($materiel->salles_id)->nom}}</p>
 
-<a href="{{ url()->previous() }}" class="btn btn-dark">Retour</a>
+<a href="{{ route('materiels.index') }}" class="btn btn-dark">Retour</a>
 @endsection

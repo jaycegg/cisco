@@ -16,11 +16,13 @@
                 <td>{{$video->created_at}}</td>
                 <td>{{$video->chemin}}</td>
                 <td>{{$video->nom}}</td>
-                <a class="btn btn-primary btn-sm" href="{{route('videos.edit', $video->id)}}">Editer</a>
-                {!! Form::open(['method' => 'DELETE','route' => ['videos.destroy', $video->id]]) !!}
-                    <button type="submit" style="display: inline;" class="btn btn-danger btn-sm">Supprimer</button>
-                {!! Form::close() !!}
-                <a class="btn btn-sm btn-dark" href="{{route('videos.show', $video->id)}}">Voir</a>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="{{route('videos.edit', $video->id)}}">Editer</a>
+                    {!! Form::open(['method' => 'DELETE','route' => ['videos.destroy', $video->id]]) !!}
+                        <button type="submit" style="display: inline;" class="btn btn-danger btn-sm">Supprimer</button>
+                    {!! Form::close() !!}
+                    <a class="btn btn-sm btn-dark" href="{{route('videos.show', $video->id)}}">Voir</a>
+                </td>
             </tr>   
         @endforeach
     </tbody>

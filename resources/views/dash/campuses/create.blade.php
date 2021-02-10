@@ -13,5 +13,5 @@
     {!! Form::submit('Créer', ['class' => 'btn btn-sm btn-success']) !!}
 {!! Form::close() !!}
 
-<a href="{{ url()->previous() }}" class="btn btn-dark">Retour</a>
+<a href="{{ route('campuses.index') }}" class="btn btn-dark">Retour</a>
 @endsection

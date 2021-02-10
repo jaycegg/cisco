@@ -14,5 +14,5 @@
         <th>{{$user->email}}</th>
         <th>{{ App\Models\Campus::find($user->campuses_id)->ville}}</th>
     </tbody>
-    <a href="{{ url()->previous() }}" class="btn btn-dark">Retour</a>
+    <a href="{{ route('users.index') }}" class="btn btn-dark">Retour</a>
 @endsection

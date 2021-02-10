@@ -12,6 +12,7 @@
         <th>Matériel</th>
         <th>Salle</th>
         <th>Utilisateur</th>
+        <th>Ville</th>
         <th>Actions</th>
     </thead>
 
@@ -22,14 +23,31 @@
                 <td>{{$ticket->created_at}}</td>
                 <td>{{$ticket->dateEcheance}}</td>
                 <td>{{$ticket->description}}</td>
-                <td>{{ App\Models\Materiel::find($ticket->materiels_id)->nom}}</td>
+
+                @if ($ticket->etat === 1)
+                    <td>En cours</td>
+                @else
+                    <td>Traité</td>
+                @endif
+
+                @if ($ticket->materiels_id != Null)
+                    <td>{{ App\Models\Materiel::find($ticket->materiels_id)->nom}}</td>
+                @else
+                    <td>Aucun</td>
+                @endif
+                
                 <td>{{ App\Models\Salle::find($ticket->salles_id)->nom}}</td>
-                <td>{{ App\Models\User::find($ticket->users_id)->name}}</td>
-                <a class="btn btn-primary btn-sm" href="{{route('tickets.edit', $ticket->id)}}">Editer</a>
-                {!! Form::open(['method' => 'DELETE','route' => ['tickets.destroy', $ticket->id]]) !!}
-                    <button type="submit" style="display: inline;" class="btn btn-danger btn-sm">Supprimer</button>
-                {!! Form::close() !!}
-                <a class="btn btn-sm btn-dark" href="{{route('tickets.show', $ticket->id)}}">Voir</a>
+                <td>{{ App\Models\User::find($ticket->users_id)->name}} {{ App\Models\User::find($ticket->users_id)->prenom}}</td>
+
+                <td>{{ App\Models\Campus::find(App\Models\Salle::find($ticket->salles_id)->campuses_id)->ville}}</td>
+
+                <td>
+                    <a class="btn btn-primary btn-sm" href="{{route('tickets.edit', $ticket->id)}}">Editer</a>
+                    {!! Form::open(['method' => 'DELETE','route' => ['tickets.destroy', $ticket->id]]) !!}
+                        <button type="submit" style="display: inline;" class="btn btn-danger btn-sm">Supprimer</button>
+                    {!! Form::close() !!}
+                    <a class="btn btn-sm btn-dark" href="{{route('tickets.show', $ticket->id)}}">Voir</a>
+                </td>
             </tr>   
         @endforeach
     </tbody>

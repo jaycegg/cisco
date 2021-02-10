@@ -40,6 +40,9 @@ class LogController extends Controller
         $request->validate([
             'date' => 'required',
             'description' => 'required',
+            'materiels_id' => 'nullable',
+            'salles_id' => 'nullable',
+            'users_id' => 'required',
         ]);
 
         Log::create($request->all());
