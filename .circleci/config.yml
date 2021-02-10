@@ -19,14 +19,13 @@ jobs:
       # Using the RAM variation mitigates I/O contention
       # for database intensive operations.
       # - image: circleci/mysql:5.7-ram
-      #
-      # - image: redis:2.8.19
+      #Image redis en comm.
+      - image: redis:2.8.19
 
     steps:
       - checkout
       
       - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
-      - run: sudo docker-php-ext-install zip
       - run: sudo docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
       - run: sudo docker-php-ext-install zip bcmath pdo_mysql
       - run: sudo apt-get install mysql-client
@@ -57,7 +56,7 @@ jobs:
 
       # prepare the database
       - run: mysqladmin create test --host="127.0.0.1" --user="root" --password=""
-      - run: php artisan migrate --env=testing --force
+      - run: php artisan migrate
       # run tests with phpunit or codecept
       #- run: ./vendor/bin/phpunit
 
