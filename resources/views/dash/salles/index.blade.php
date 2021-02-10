@@ -16,10 +16,21 @@
                 <tr>
                     <td>{{$salle->nom}}</td>
                     @if ($salle->etat == 1)
-                        <td>Disponible</td>
+                        <td>
+                            <button type="button" class="btn btn-success" disabled>Disponible</button>
+                        </td>
                     @else
-                        <td>Indisponible</td>
+                        <td>
+                            <form enctype="multipart/form-data" method="POST" action="{{route('dispoSal')}}" >
+                                @csrf
+                
+                                <input type="hidden" name="idSa" value="{{$salle->id }}" />
+        
+                                <button class="btn btn-warning" type="submit">Rendre Disponible</button>
+                            </form>
+                        </td>
                     @endif
+
                     <td>{{ App\Models\Campus::find($salle->campuses_id)->ville}}</td>
                     <td>
                         <a class="btn btn-primary btn-sm" href="{{route('salles.edit', $salle->id)}}">Editer</a>

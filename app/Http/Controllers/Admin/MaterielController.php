@@ -7,27 +7,50 @@ use Illuminate\Http\Request;
 use App\Models\Materiel;
 use App\Models\Salle;
 use App\Models\Campus;
+use App\Models\Ticket;
+use Illuminate\Support\Facades\Auth;
+use DB;
+use DateTime;
 
 class MaterielController extends Controller
 {
-         /**
-     * Liste du matériel réservé ou non
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showEtat(){
-        $materiel_id = Materiel::all();
-        return view('reservations.materielResa', compact('materiel_id'));
+    // GET
+    public function listeMateriel()
+    {
+        $materiels_id = Materiel::all();
+        return view('reservations.listeMateriel', compact('materiels_id'));
+    }
+
+    // Utilisateur crée un ticket de réservation
+    // POST
+    public function reserverM(Request $request, $id){
+        $ticket = new Ticket;
+        $ticket->type = $request->input('type');
+        $ticket->description = $request->input('description');
+        $ticket->etat = 1;
+        $ticket->start = $request->input('start');
+        $ticket->end = $request->input('end');
+        $ticket->startT = $request->input('startT');
+        $ticket->endT = $request->input('endT');
+        $ticket->materiels_id = $request->input('materiels_id');
+        $ticket->salles_id = $request->input('salles_id');
+        $ticket->users_id = Auth::id();
+        $ticket->save();
+
+        return back();
+    }
+
+    //GET selon id
+    public function resaIdM($id){
+        $materiel = Materiel::find($id);
+        return view('reservations.materielResa', compact('materiel'));
     }
 
     // Fonction de réservation de salle, change le booleen
-    public function reserver(Request $request)
+    public function dispoM(Request $request)
     {
-        $materiel_id = Materiel::all();
-        
-        $all = $request->except('_token');
-        $data = Materiel::where('id', $request->id)->get();
-        $update = Materiel::where('id', $request->id)->update($all);
+        Materiel::where('id', '=', $request->input('idMat'))
+        ->update(['etat' => 1]);
 
         return back();
 

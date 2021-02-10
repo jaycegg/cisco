@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSallesTable extends Migration
+class CreateMaterielsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,17 @@ class CreateSallesTable extends Migration
      */
     public function up()
     {
-        Schema::create('salles', function (Blueprint $table) {
+        Schema::create('materiels', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
+            $table->string('categorie');
+            $table->string('description');
             $table->boolean('etat')->default(1);
             $table->timestamps();
             
-            $table->foreignId('videos_id')->nullable()->constrained('videos');
             $table->foreignId('campuses_id')->constrained('campuses');
-            
+            $table->foreignId('salles_id')->constrained('salles');
+
         });
     }
 
@@ -32,6 +34,6 @@ class CreateSallesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('salles');
+        Schema::dropIfExists('materiels');
     }
 }

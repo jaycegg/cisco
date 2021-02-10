@@ -3,34 +3,57 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Salle;
 use App\Models\Campus;
+use App\Models\Ticket;
+use App\Models\Event;
 use DB;
+use DateTime;
 
 class SalleController extends Controller
 {
-     /**
-     * Liste des salles réservées ou non
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showEtat(){
-        $salle_id = Salle::all();
-        return view('reservations.salleResa', compact('salle_id'));
-    }
 
-    // Fonction de réservation de salle, change le booleen
-    public function reserver(Request $request)
-    {
-        $salle_id = Salle::all();
-        
-        $all = $request->except('_token');
-        $data = Salle::where('id', $request->id)->get();
-        $update = Salle::where('id', $request->id)->update($all);
+    // Utilisateur crée un ticket de réservation
+    // POST
+    public function reserver(Request $request, $id){
+        $ticket = new Ticket;
+        $ticket->type = $request->input('type');
+        $ticket->description = $request->input('description');
+        $ticket->etat = 1;
+        $ticket->start = $request->input('start');
+        $ticket->end = $request->input('end');
+        $ticket->startT = $request->input('startT');
+        $ticket->endT = $request->input('endT');
+        $ticket->salles_id = $request->input('salles_id');
+        $ticket->users_id = Auth::id();
+        $ticket->save();
 
         return back();
+    }
 
+    // GET
+    public function listeSalle()
+    {
+        $salles_id = Salle::all();
+        return view('reservations.listeSalle', compact('salles_id'));
+    }
+
+    //GET selon id
+    public function resaId($id)
+    {
+        $salle = Salle::find($id);
+        return view('reservations.salleResa', compact('salle'));
+    }
+
+    // Fonction pour rendre disponible la salle, change le booleen
+    public function dispo(Request $request)
+    {
+        Salle::where('id', '=', $request->input('idSa'))
+        ->update(['etat' => 1]);
+
+        return back();
     }
 
     // Créer un template de CSV Salles

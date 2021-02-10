@@ -1,0 +1,15 @@
+.banniere{
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-size: 50px;
+    background-color : #ffc853;
+  }
+
+  .fondjaune{
+    background-color : #ffc853;
+  }
+
+  .alignement{
+    text-align: center !important;
+    
+  }

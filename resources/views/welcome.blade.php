@@ -10,13 +10,13 @@
             <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                 <!-- Si connecté, menu du haut mène à l'accueil -->
                 @auth
-                    <a href="{{ url('/home') }}" class="btn btn-success btn-lg">Accueil</a>
+                    <a href="{{ url('/home') }}" class="btn btn-lg" style="background-color : #ffc853;">Accueil</a>
                 <!-- Sinon menu du haut par défaut -->
                 @else
-                    <a href="{{ route('login') }}" class="btn btn-warning btn-lg">Se connecter</a>                
+                    <a href="{{ route('login') }}" class="btn" style="background-color : #ffc853;">Se connecter</a>                
                     <!-- Si la route existe dans web.php -->
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="btn btn-dark btn-lg">S'inscrire</a>
+                        <a href="{{ route('register') }}" class="btn" style="background-color : #ffc853;">S'inscrire</a>
                     @endif
                 @endif
             </div>

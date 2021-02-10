@@ -5,7 +5,7 @@
 <table>
     <thead>
         <th>Type</th>
-        <th>Créé le</th>
+        <th>Commence le</th>
         <th>Se termine le</th>
         <th>Description</th>
         <th>Etat</th>
@@ -20,8 +20,8 @@
         @foreach ($tickets as $ticket)
             <tr>
                 <td>{{$ticket->type}}</td>
-                <td>{{$ticket->created_at}}</td>
-                <td>{{$ticket->dateEcheance}}</td>
+                <td>{{$ticket->start}} {{$ticket->startT}}</td>
+                <td>{{$ticket->end}} {{$ticket->endT}}</td>
                 <td>{{$ticket->description}}</td>
 
                 @if ($ticket->etat === 1)

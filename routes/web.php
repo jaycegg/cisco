@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NetacadController;
+use App\Http\Controllers\CalendrierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,18 +36,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/*Autres routes :
+    /log-reader pour voir l'activité sur Laravel
+    /admin/user-activity pour voir l'activité des users
+*/
+
 /* Route pouvant modifier les booleens concernant les etats */
 /* Salles */
 Route::group(['middleware' => 'auth'],function(){
-    Route::get('/reservation/salles', [SalleController::class, 'showEtat'])->name('salleResa');
-    Route::post('/reservation/salles', [SalleController::class, 'reserver'])->name('reservationSalles');
+    Route::get('/reservation/salles/{salle}', [SalleController::class, 'resaId'])->name('salleResa');
+    Route::post('/reservation/salles/dispo', [SalleController::class, 'dispo'])->name('dispoSal');
+    Route::post('/reservation/salles/{ticket}', [SalleController::class, 'reserver'])->name('resaSalle');
+    Route::get('/reservation/liste/salles', [SalleController::class, 'listeSalle'])->name('listeSalle');
 });
 
 /* Materiels */
-Route::get('/reservation/materiels', [MaterielController::class, 'showEtat'])->name('materielResa');
-Route::post('/reservation/materiels', [MaterielController::class, 'reserver'])->name('reservationMateriels');
+Route::get('/reservation/materiels/{materiel}', [MaterielController::class, 'resaIdM'])->name('materielResa');
+Route::post('/reservation/materiels/{materiel}', [MaterielController::class, 'reserverM'])->name('resaMateriel');
+Route::post('/reservation/materiels/dispo', [MaterielController::class, 'dispoM'])->name('dispoMat');
+Route::get('/reservation/liste/materiels', [MaterielController::class, 'listeMateriel'])->name('listeMateriel');
 
-// Netacad - Promotion
+// Netacad
 Route::get('/netacad', [NetacadController::class, 'index'])->name('netacad');
 
 //Import CSV
@@ -60,7 +70,8 @@ Route::get('/netacad/csv/promo', [NetacadController::class, 'exportCsv']);
 
 /* Gestion des tickets */
 Route::get('/gestion/tickets', [TicketController::class, 'gestionTickets'])->name('gestionTickets');
-Route::post('/gestion/tickets/materiel/valider', [TicketController::class, 'accepter'])->name('acMat');
+Route::get('/demande/tickets', [TicketController::class, 'demande'])->name('demande');
+Route::post('/gestion/tickets/materiel/valider', [TicketController::class, 'accepterMateriel'])->name('acMat');
 Route::post('/gestion/tickets/decliner', [TicketController::class, 'decliner'])->name('dec');
 Route::post('/gestion/tickets/salle/valider', [TicketController::class, 'accepterSalle'])->name('acSal');
 
@@ -90,3 +101,14 @@ Auth::routes();
 
 /* Route du menu principal */
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+/* Route du calendrier */
+Route::get('/calendar', [App\Http\Controllers\CalendrierController::class, 'calendar'])->name('calendar');
+Route::post('/addEvent', [App\Http\Controllers\CalendrierController::class, 'addEvent'])->name('addEvent');
+Route::post('/editEventDate', [App\Http\Controllers\CalendrierController::class, 'editEventDate'])->name('editEventDate');
+Route::post('/editEventTitle', [App\Http\Controllers\CalendrierController::class, 'editEventTitle'])->name('editEventTitle');
+
+Route::get('calendrier', [CalendrierController::class, 'calendrier'])->name('fullcalendar');
+Route::post('calendrier/ajax', [CalendrierController::class, 'ajax'])->name('ajax');
+
+Route::get('securite', [VideoController::class, 'cam'])->name('cam');
