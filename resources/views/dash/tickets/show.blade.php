@@ -4,7 +4,7 @@
 <table>
     <thead>
         <th>Type</th>
-        <th>Créé le</th>
+        <th>Commence le</th>
         <th>Se termine le</th>
         <th>Description</th>
         <th>Etat</th>
@@ -14,8 +14,8 @@
     </thead>
     <tbody>
         <th>{{$ticket->type}}</th>
-        <th>{{$ticket->created_at}}</th>
-        <th>{{$ticket->dateEcheance}}</th>
+        <th>{{$ticket->start}} {{$ticket->startT}}</th>
+        <th>{{$ticket->end}} {{$ticket->endT}}</th>
         <th>{{$ticket->description}}</th>
         
         @if ($ticket->etat === 1)

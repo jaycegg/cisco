@@ -7,36 +7,85 @@ use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\Salle;
 use App\Models\Materiel;
+use App\Models\Event;
 use Illuminate\Support\Facades\Validator;
+use DateTime;
+use Carbon\Carbon;
+use DB;
 
 class TicketController extends Controller
 {  
     
+    public function demande(){
+        $tickets = Ticket::all();
+        return view('gestion.demande', compact('tickets'));
+    }
+
     // Gestion des tickets
     public function gestionTickets(){
         $tickets = Ticket::all();
         return view('gestion.ticket', compact('tickets'));
     }
     
-    // Accepter la réservation
+    // Accepter la réservation de materiel
     // Etat -> 0 = Accepté, 1 = En cours, 2 = Refus
-    public function accepter(Request $request){
+    public function accepterMateriel(Request $request){
+        // Création d'event lors de la validation du ticket
+        $event = new Event;
+        $event->title = 'Réservation Materiel';
+        // Concatener les input pour créer un dateTime
+        $dateD = $request->input('start');
+        $heureD = $request->input('startTime');
+        $dateTimeD = new Carbon($dateD.' '.$heureD);
+        $event->start = $dateTimeD;
+
+        $dateF = $request->input('end');
+        $heureF = $request->input('endTime');
+        $dateTimeF = new Carbon($dateF.' '.$heureF);
+        $event->end = $dateTimeF;    
+
+        $event->salles_id = $request->input('idSa');
+        
+        $event->save();
+
+        // Modifier la table Tickets pour retrouver l'Event
         Materiel::where('id', '=', $request->input('idMa'))
         ->update(['etat' => 0]);
 
-
         Ticket::where('id', '=', $request->input('idTi'))
-        ->update(['etat' => 0]);
+        ->update(['etat' => 0, 'events_id' => $event->id]);
 
         return back();
     }
 
+    // Accepter par l'administrateur
     public function accepterSalle(Request $request){
+        // Création d'event lors de la validation du ticket
+        $event = new Event;
+        $event->title = 'Réservation Salle';
+        // Concatener les input pour créer un dateTime
+        $dateD = $request->input('start');
+        $heureD = $request->input('startTime');
+        $dateTimeD = new Carbon($dateD.' '.$heureD);
+        $event->start = $dateTimeD;
+        
+        $dateF = $request->input('end');
+        $heureF = $request->input('endTime');
+        $dateTimeF = new Carbon($dateF.' '.$heureF);
+        $event->end = $dateTimeF;    
+        
+        $event->salles_id = $request->input('idSa');
+
+        $event->save();
+        
+        // Modifier la table Tickets pour retrouver l'Event
         Salle::where('id', '=', $request->input('idSa'))
         ->update(['etat' => 0]);
 
         Ticket::where('id', '=', $request->input('idTi'))
-        ->update(['etat' => 0]);
+
+        ->update(['etat' => 0, 'events_id' => $event->id]);
+
         return back();
     }
 

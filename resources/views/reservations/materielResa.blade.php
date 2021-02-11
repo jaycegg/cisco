@@ -1,45 +1,32 @@
 @extends('layouts.app')
 @section('content')
     
-    <!--Ici interface de réservation de Matériel-->
-    @foreach ($materiel_id as $materiel)
-        @if ($materiel->etat == True)
+        <h3>Votre demande pour le matériel : {{$materiel->nom}}</h3>
+        <form enctype="multipart/form-data" method="POST" action="{{route('resaMateriel', $materiel->id)}}" >
+            @csrf
+            {!! Form::label('type', 'Type de ticket') !!}  
+            {!!Form::select('type', ['Materiel' => 'Réserver un matériel', 'Autre' => 'Autre motif', 'Casse' => 'Matériel défectueux'], 'Materiel')!!}
+
+            {!! Form::label('start', 'Début') !!}  
+            <input id="start" name="start" type="date">
+            <input id="startT" name="startT" type="time">         
+                    
+            {!! Form::label('end', 'Fin') !!}        
+            <input id="end" name="end" type="date">
+            <input id="endT" name="endT" type="time">
+            <br>
+            {!! Form::label('description', 'Description') !!}
+            <br>
+            {!! Form::textarea('description', null, ['class'=>'col-sm-6']) !!}
+            <br>
             
-            <p class='text-center text-success'>{{ $materiel->nom }} : Disponible</p>
+            <input type="hidden" name="materiels_id" value="{{$materiel->id}}">
+            <input type="hidden" name="salles_id" value="{{$materiel->salles_id}}">
 
-            <form enctype="multipart/form-data" method="POST" action="{{route('reservationMateriels')}}" >
-                @csrf
-
-                @if($materiel->etat == 1 )
-                    <input type="hidden" name="id" value="{{ $materiel->id }}" />
-                    <input type="hidden" name="etat" value="0" />
-                @endif
-                
-                <button class="btn btn-success" type="submit">
-                    Réserver
-                </button>
-            </form>
-
-        @else
-          
-            <p class='text-center text-danger'>{{ $materiel->nom }} : Non disponible</p>
-            
-            <button class="btn btn-warning" disabled>Indisponible</button>
-
-            <form enctype="multipart/form-data" method="POST" action="{{route('reservationMateriels')}}" >
-                @csrf
-
-                @if($materiel->etat == 0 )
-                <input type="hidden" name="id" value="{{ $materiel->id }}" />
-                <input type="hidden" name="etat" value="1" />
-                @endif
-                
-                <button class="btn btn-danger" type="submit">Rendre dispo</button>
-            </form>
-
-        @endif
-        
-    @endforeach
+            <button class="btn btn-success" type="submit">
+                Créer ticket
+            </button>
+        </form>
 
     <a href="{{ url()->route('home') }}" class="btn btn-dark">Retour</a>
     

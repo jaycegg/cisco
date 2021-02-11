@@ -7,9 +7,19 @@
 
     <h4>Disponibilité</h4>
     @if ($salle->etat == 1)
-        <p>Disponible</p>
+        <td>
+            <button type="button" class="btn btn-success" disabled>Disponible</button>
+        </td>
     @else
-        <p>Non disponible</p>
+        <td>
+            <form enctype="multipart/form-data" method="POST" action="{{route('dispoSal')}}" >
+                @csrf
+
+                <input type="hidden" name="idSa" value="{{$salle->id }}" />
+
+                <button class="btn btn-warning" type="submit">Rendre Disponible</button>
+            </form>
+        </td>
     @endif
 
     <h4>Campus</h4>

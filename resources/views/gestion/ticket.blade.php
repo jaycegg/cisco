@@ -8,7 +8,7 @@
     <h3>Tickets en cours :</h3>
         @foreach ($tickets as $ticket)
         @if ($ticket->etat === 1)  
-            <li><a>{{App\Models\Salle::find($ticket->salles_id)->nom}} / {{App\Models\Campus::find(App\Models\Salle::find($ticket->salles_id)->campuses_id)->ville}}</a> - créé le : {{$ticket->created_at}}                
+            <li><a>Salle : {{App\Models\Salle::find($ticket->salles_id)->nom}} / {{App\Models\Campus::find(App\Models\Salle::find($ticket->salles_id)->campuses_id)->ville}}</a> - créé le : {{$ticket->created_at}}                
                 <p>
                 Concerne : 
                     @if ($ticket->materiels_id == Null)
@@ -29,7 +29,16 @@
                         <!--Changer l'etat du ticket-->
                         <input type="hidden" name="idTi" value="{{$ticket->id}}" />
                         <!--Changer l'etat du materiel-->
-                        <input type="hidden" name="idMa" value="{{$ticket->materiels_id}}" />
+                        <input type="hidden" name="idSa" value="{{$ticket->salles_id}}" />
+                        
+                        <label for="start">Début</label>         
+                        <input id="start" name="start" type="date" value="{{$ticket->start}}">
+                        <input id="startT" name="startT" type="time" value="{{$ticket->startT}}">         
+
+                        <label for="end">Fin</label>         
+                        <input id="end" name="end" type="date" value="{{$ticket->end}}">
+                        <input id="endT" name="endT" type="time" value="{{$ticket->endT}}">
+
                         <button class="btn btn-success" type="submit">
                             Accepter
                         </button>
@@ -42,14 +51,20 @@
                     <input type="hidden" name="idTi" value="{{$ticket->id}}" />
                     <!--Changer l'etat de la salle-->
                     <input type="hidden" name="idSa" value="{{$ticket->salles_id}}" />
+
+                    <label for="start">Début</label>         
+                    <input id="start" name="start" type="date" value="{{$ticket->start}}">
+                    <input id="startT" name="startT" type="time" value="{{$ticket->startT}}">         
+
+                    <label for="end">Fin</label>         
+                    <input id="end" name="end" type="date" value="{{$ticket->end}}">
+                    <input id="endT" name="endT" type="time" value="{{$ticket->endT}}">
+
                     <button class="btn btn-success" type="submit">
                         Accepter
                     </button>
                 </form>
                 @endif
-
-                
-                <!--End if-->
 
                 <form enctype="multipart/form-data" method="POST" action="{{url('/gestion/tickets/decliner')}}">
                     @csrf
@@ -66,10 +81,10 @@
     <h3>Tickets traités :</h3> 
     @foreach ($tickets as $ticket)
         @if ($ticket->etat === 0)
-            <li><a>{{App\Models\Salle::find($ticket->salles_id)->nom}} / {{App\Models\Campus::find(App\Models\Salle::find($ticket->salles_id)->campuses_id)->ville}}</a> - créé le : {{$ticket->created_at}} (par {{App\Models\User::find($ticket->users_id)->name}} {{App\Models\User::find($ticket->users_id)->prenom}} - {{App\Models\Role::find(App\Models\User::find($ticket->users_id)->roles_id)->nom}})
+            <li><a>Salle : {{App\Models\Salle::find($ticket->salles_id)->nom}} / {{App\Models\Campus::find(App\Models\Salle::find($ticket->salles_id)->campuses_id)->ville}}</a> - créé le : {{$ticket->created_at}}
                 <p>
                 Concerne : 
-                    @if ($ticket->materiels_id == Null)
+                    @if ($ticket->materiels_id === Null)
                         Salle <br>
                     @elseif ($ticket->materiels_id != Null)
                         Matériel <br>
@@ -79,6 +94,17 @@
                 Auteur : {{App\Models\User::find($ticket->users_id)->name}} {{App\Models\User::find($ticket->users_id)->prenom}} - {{App\Models\Role::find(App\Models\User::find($ticket->users_id)->roles_id)->nom}} <br>
                 </p>
                 <a href="{{route('tickets.show', $ticket->id)}}" class="btn btn-warning">Examiner</a>
+                
+                @if ($ticket->materiels_id === Null)
+                    <form enctype="multipart/form-data" method="POST" action="{{route('dispoSal')}}" >
+                        @csrf
+        
+                        <input type="hidden" name="idSa" value="{{App\Models\Salle::find($ticket->salles_id)->id }}" />
+
+                        <label>Rendre la salle disponible</label>
+                        <button class="btn btn-danger" type="submit">Disponible</button>
+                    </form>
+                @endif
             </li>
         @endif
     @endforeach
@@ -86,7 +112,7 @@
     <h3>Tickets refusés :</h3> 
     @foreach ($tickets as $ticket)
         @if ($ticket->etat === 2)
-            <li><a>{{App\Models\Salle::find($ticket->salles_id)->nom}} / {{App\Models\Campus::find(App\Models\Salle::find($ticket->salles_id)->campuses_id)->ville}}</a> - créé le : {{$ticket->created_at}} (par {{App\Models\User::find($ticket->users_id)->name}} {{App\Models\User::find($ticket->users_id)->prenom}} - {{App\Models\Role::find(App\Models\User::find($ticket->users_id)->roles_id)->nom}})
+            <li><a>{{App\Models\Salle::find($ticket->salles_id)->nom}} / {{App\Models\Campus::find(App\Models\Salle::find($ticket->salles_id)->campuses_id)->ville}}</a> - créé le : {{$ticket->created_at}}
                 <p>
                 Concerne : 
                     @if ($ticket->materiels_id == Null)

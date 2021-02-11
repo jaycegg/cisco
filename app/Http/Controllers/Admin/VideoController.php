@@ -8,6 +8,11 @@ use App\Models\Video;
 
 class VideoController extends Controller
 {  
+
+    public function cam(){
+        return view('dash.cam');
+    }
+
     /**
     * Display a listing of the resource.
     *

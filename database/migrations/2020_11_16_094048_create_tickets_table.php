@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +15,10 @@ class CreateTicketsTable extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string('type');
+            $table->date('start')->nullable();
+            $table->time('startT')->nullable();
+            $table->date('end')->nullable();
+            $table->time('endT')->nullable();
             $table->timestamps();
             $table->string('description');
             $table->tinyInteger('etat')->default(1);

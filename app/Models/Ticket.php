@@ -17,8 +17,12 @@ class Ticket extends Model
     protected $fillable = [
         'type',
         'created_at',
-        'dateEcheance',
         'description',
         'etat',
+        'start',
+        'end',
+        'startT',
+        'endT',
+        'users_id'
     ];
 }
