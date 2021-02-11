@@ -83,6 +83,7 @@ class TicketController extends Controller
         ->update(['etat' => 0]);
 
         Ticket::where('id', '=', $request->input('idTi'))
+
         ->update(['etat' => 0, 'events_id' => $event->id]);
 
         return back();
